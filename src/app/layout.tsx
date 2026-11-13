@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="es"
       className={cn("h-full", "antialiased", dmSans.variable, bricolageGrotesque.variable, "font-sans", geist.variable)}
     >
-      <body className="min-h-full bg-background font-santop text-background color-scheme light">
+      <body className="min-h-full bg-background font-sans text-foreground antialiased">
         {children}
       </body>
     </html>
