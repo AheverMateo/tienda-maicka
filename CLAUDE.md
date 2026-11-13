@@ -55,7 +55,7 @@ npx tsc --noEmit   # verificar tipos
 
 | # | Tarea | Estado |
 |---|-------|--------|
-| 0.1 | Conectar remote de GitHub al repo local | ⬜ |
+| 0.1 | Conectar remote de GitHub al repo local | ✅ |
 | 0.2 | Crear proyecto en Supabase y obtener credenciales | ⬜ |
 | 0.3 | Configurar `.env.local` con URL y key de Supabase | ⬜ |
 
