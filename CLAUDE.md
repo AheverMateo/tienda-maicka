@@ -2,8 +2,9 @@
 
 ## Contexto del Proyecto
 
-Tienda en línea para la tía: catálogo de productos con pedidos por WhatsApp
-y fotos mejoradas con IA. Referencia completa: `plan-catalogo.html`.
+Desarrollo de un catálogo de productos en línea con pedidos integrados por
+WhatsApp y sistema de mejora de fotos mediante IA. Plan completo de referencia:
+`plan-catalogo.html`.
 
 **Stack:** Next.js (App Router, TypeScript, Tailwind, shadcn/ui) · Supabase · Vercel
 
@@ -11,18 +12,25 @@ y fotos mejoradas con IA. Referencia completa: `plan-catalogo.html`.
 
 ## Reglas de Trabajo
 
+### Regla de oro: TODO pasa por el usuario
+- **No hago nada sin aprobación explícita.** Ni commits, ni archivos, ni cambios.
+- **No me adelanto.** Espero a que me pidas la siguiente acción.
+- Si dudo de algo, pregunto. Nunca asumo ni procedo por mi cuenta.
+- Si termino una tarea, me quedo esperando. No sigo hasta que digas "OK" o "siguiente".
+
 ### Mi rol (asistente)
-- Ejecuto **una tarea a la vez**, esperando confirmación antes de pasar a la siguiente.
-- Al terminar una tarea: verifico (lint, tsc, prueba manual si aplica), hago commit y aviso.
+- Ejecuto **una tarea a la vez**, esperando tu aprobación explícita.
+- Al terminar una tarea: verifico (lint, tsc), muestro el resultado y **espero tu OK para commitear**.
 - Si una tarea requiere decisión tuya (precio, texto, diseño), pregunto antes de ejecutar.
 - Nunca salto tareas. Si hay bloqueo, lo informo y espero instrucción.
-- La documentación (README, guías) la genero yo solo si me lo pedís explícitamente.
+- La documentación (README, guías) la genero solo si me lo pedís explícitamente.
 
 ### Tu rol (product owner)
-- Aprobás cada tarea antes de que avance a la siguiente.
+- Aprobás cada acción: código, commits, despliegues, todo.
 - Proveés datos reales: productos, fotos, precios, número de WhatsApp, nombre del negocio.
 - Validás resultados visuales cuando lo pida.
 - Decidís cambios de alcance o prioridades.
+- Decidís cuándo avanzar a la siguiente tarea.
 
 ### Comandos de verificación
 ```bash
@@ -73,11 +81,11 @@ npx tsc --noEmit   # verificar tipos
 | 1.15 | Probar en 2 celulares (uno de gama baja) y corregir | ⬜ |
 
 ### Fase 2 — Semana 2: Panel de carga
-**Meta:** la tía carga y edita productos sola desde el celular.
+**Meta:** el propietario carga y edita productos de forma autónoma desde el celular.
 
 | # | Tarea | Estado |
 |---|-------|--------|
-| 2.1 | Activar Supabase Auth (email/password), crear usuario de la tía | ⬜ |
+| 2.1 | Activar Supabase Auth (email/password), crear usuario administrador | ⬜ |
 | 2.2 | Ruta `/admin` protegida con middleware | ⬜ |
 | 2.3 | RLS: escritura solo para el usuario dueño | ⬜ |
 | 2.4 | Listado en el panel: productos con estado y stock | ⬜ |
@@ -89,7 +97,7 @@ npx tsc --noEmit   # verificar tipos
 | 2.10 | Compresión en cliente antes de subir (máx. ~1600px) | ⬜ |
 | 2.11 | Varias fotos por producto, con foto principal | ⬜ |
 | 2.12 | Políticas de Storage: lectura pública, escritura solo dueña | ⬜ |
-| 2.13 | Prueba: la tía carga 5 productos reales sola | ⬜ |
+| 2.13 | Prueba: el propietario carga 5 productos reales de forma autónoma | ⬜ |
 | 2.14 | Corregir problemas de la prueba | ⬜ |
 | 2.15 | Cargar 20-30 productos reales | ⬜ |
 
@@ -109,7 +117,7 @@ npx tsc --noEmit   # verificar tipos
 | 3.9 | Cuota mensual de mejoras y rate limiting | ⬜ |
 | 3.10 | Validación de tipo y tamaño de archivo | ⬜ |
 | 3.11 | Probar con 10 productos reales, ajustar prompts que fallen | ⬜ |
-| 3.12 | Validación final con la tía (aprobar 8 de 10) | ⬜ |
+| 3.12 | Validación final con el propietario (aprobar 8 de 10) | ⬜ |
 
 ### Fase 4 — Semana 4: Diseño y lanzamiento
 **Meta:** sitio pulido, con dominio, listo para compartir.
@@ -129,19 +137,43 @@ npx tsc --noEmit   # verificar tipos
 | 4.10 | Revisar accesibilidad básica (contraste, foco, alt) | ⬜ |
 | 4.11 | Revisar permisos RLS una última vez | ⬜ |
 | 4.12 | Link en WhatsApp Business e Instagram | ⬜ |
-| 4.13 | Enseñarle a la tía: cargar producto + mejorar foto (15 min) | ⬜ |
+| 4.13 | Capacitación: cargar producto + mejorar foto (15 min) | ⬜ |
 | 4.14 | Dejar guía de una página con capturas | ⬜ |
 
 ---
 
 ## Pendientes del usuario (vos)
 
-- [ ] Datos de la tía: nombre del negocio, logo, colores, número WhatsApp
+- [ ] Datos del negocio: nombre, logo, colores, número de WhatsApp
 - [ ] 10-15 productos con fotos, precio y talles
 - [ ] Confirmar si cobra online o solo por WhatsApp
 - [ ] Responder si controla stock en pelotas, linternas y demás
 - [ ] URL y key del proyecto Supabase (cuando lo cree)
 - [ ] Remote URL del repo en GitHub
+
+---
+
+## Notas de Sesión (memoria persistente)
+
+> Actualizar este archivo al final de cada sesión para conservar el contexto.
+> Leer esto primero al iniciar una nueva sesión.
+
+### Última sesión
+- **Fecha:** 2026-11-13
+- **Tarea en curso:** Ninguna (fase 0 pendiente)
+- **Estado:** Proyecto Next.js limpio y funcionando. Commit `66fb33a`.
+- **Pendiente inmediato:** Conectar remote de GitHub (necesito la URL)
+
+### Decisiones tomadas
+- Stack: Next.js 16 + Tailwind v4 + shadcn/ui (sin Supabase aún)
+- Flujo: una tarea a la vez, todo aprobado por el usuario
+- Commits solo con aprobación explícita
+
+### Contexto para próxima sesión
+- Proyecto en `C:\Users\brand\Desktop\Proyectos\TIenda\tienda`
+- `npm run dev` levanta en `http://localhost:3000`
+- `npm run lint` y `npx tsc --noEmit` pasan limpios
+- Plan completo en este archivo, referencias en `plan-catalogo.html`
 
 ---
 
