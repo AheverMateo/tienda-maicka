@@ -19,7 +19,7 @@ export function SiteHeader() {
             <span className="font-heading text-2xl font-extrabold leading-none tracking-tight">
               Catálogo<span className="text-primary">.</span>
             </span>
-            <span className="mt-1 hidden text-[11px] font-medium leading-none text-muted-foreground sm:block">
+            <span className="mt-1 text-[11px] font-medium leading-none text-muted-foreground">
               indumentaria · bazar · regalos
             </span>
           </Link>

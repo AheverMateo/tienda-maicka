@@ -17,7 +17,15 @@ const bricolageGrotesque = Bricolage_Grotesque({
 
 export const metadata: Metadata = {
   title: "Catálogo",
-  description: "Tienda con pedidos por WhatsApp y fotos mejoradas con IA",
+  description:
+    "Indumentaria, bazar y regalos. Armá tu pedido y cerralo por WhatsApp: sin cuentas ni pago online.",
+  openGraph: {
+    title: "Catálogo",
+    description:
+      "Indumentaria, bazar y regalos. Armá tu pedido y cerralo por WhatsApp.",
+    locale: "es_AR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="es"
+      lang="es-AR"
       className={cn("h-full", dmSans.variable, bricolageGrotesque.variable)}
     >
       <body className="min-h-full bg-background font-sans text-foreground antialiased">

@@ -10,7 +10,8 @@ export default function Home() {
       </Suspense>
 
       <footer className="mt-10 border-t border-border pt-4 text-sm text-muted-foreground">
-        Catálogo demo — el pedido se coordina por WhatsApp.
+        Indumentaria, bazar y regalos. El pedido se coordina por WhatsApp y
+        te lo confirma la dueña personalmente.
       </footer>
     </main>
   );

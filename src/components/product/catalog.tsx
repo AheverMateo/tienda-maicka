@@ -70,6 +70,32 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
         </p>
       </header>
 
+      <ol
+        aria-label="Cómo comprar"
+        className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px] font-medium text-muted-foreground"
+      >
+        {[
+          "Elegí tus productos",
+          "Armá el pedido",
+          "Lo cerramos por WhatsApp",
+        ].map((step, index) => (
+          <li key={step} className="flex items-center gap-1.5">
+            <span
+              aria-hidden
+              className="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-bold tabular-nums text-primary-foreground"
+            >
+              {index + 1}
+            </span>
+            {step}
+            {index < 2 && (
+              <span aria-hidden className="ml-1 text-border">
+                →
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+
       <div className="mt-6 flex items-baseline gap-3">
         <h2 className="font-heading text-xl font-bold">Recién llegado</h2>
         <span className="text-sm text-muted-foreground">

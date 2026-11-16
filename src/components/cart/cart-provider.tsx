@@ -166,15 +166,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items])
 
-  const whatsappHref = useMemo(() => {
-    if (!WHATSAPP_READY) return null
+  const whatsappMessage = useMemo(() => {
     const lines = items.map(
       (item) =>
         `- ${item.qty}× ${item.name}${item.talle ? ` (talle ${item.talle})` : ""} — ${formatPrice(item.price * item.qty)}`,
     )
-    const message = `¡Hola! Quiero hacer este pedido:\n${lines.join("\n")}\nTotal: ${formatPrice(total)}`
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+    return `¡Hola! Quiero hacer este pedido:\n${lines.join("\n")}\nTotal: ${formatPrice(total)}`
   }, [items, total])
+
+  const whatsappHref = useMemo(() => {
+    if (!WHATSAPP_READY) return null
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`
+  }, [whatsappMessage])
 
   const value = useMemo(
     () => ({
@@ -298,6 +301,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 {formatPrice(total)}
               </span>
             </div>
+            <p className="text-center text-sm leading-snug text-muted-foreground">
+              La dueña te confirma stock, entrega y forma de pago por
+              WhatsApp. Acá no pagás nada todavía.
+            </p>
+            {WHATSAPP_READY && items.length > 0 && (
+              <details className="text-center">
+                <summary className="cursor-pointer text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground">
+                  Ver cómo llega el mensaje
+                </summary>
+                <pre className="mt-2 whitespace-pre-wrap rounded-lg bg-muted p-3 text-left font-sans text-xs leading-relaxed text-foreground">
+                  {whatsappMessage}
+                </pre>
+              </details>
+            )}
             {WHATSAPP_READY ? (
               <a
                 href={items.length > 0 ? (whatsappHref ?? undefined) : undefined}
