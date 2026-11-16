@@ -29,6 +29,7 @@ export type CartItem = {
   price: number
   talle?: string
   qty: number
+  maxStock?: number
 }
 
 type CartContextValue = {
@@ -45,8 +46,39 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | null>(null)
 
-const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "5493800000000"
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() ?? ""
+const WHATSAPP_READY = /^\d{8,15}$/.test(WHATSAPP_NUMBER)
+
+const STORAGE_KEY = "tienda-cart-v1"
+
+function loadStoredCart(): CartItem[] {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY)
+    if (!raw) return []
+    const parsed: unknown = JSON.parse(raw)
+    if (!Array.isArray(parsed)) return []
+    return parsed.filter((item): item is CartItem => {
+      if (typeof item !== "object" || item === null) return false
+      const candidate = item as Record<string, unknown>
+      return (
+        typeof candidate.key === "string" &&
+        typeof candidate.productId === "string" &&
+        typeof candidate.name === "string" &&
+        typeof candidate.price === "number" &&
+        candidate.price > 0 &&
+        Number.isInteger(candidate.qty) &&
+        (candidate.qty as number) >= 1 &&
+        (candidate.talle === undefined ||
+          typeof candidate.talle === "string") &&
+        (candidate.maxStock === undefined ||
+          (typeof candidate.maxStock === "number" &&
+            candidate.maxStock >= 1))
+      )
+    })
+  } catch {
+    return []
+  }
+}
 
 export function useCart() {
   const ctx = useContext(CartContext)
@@ -56,8 +88,26 @@ export function useCart() {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [hydrated, setHydrated] = useState(false)
   const [open, setOpen] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setItems(loadStoredCart())
+      setHydrated(true)
+    }, 0)
+    return () => window.clearTimeout(id)
+  }, [])
+
+  useEffect(() => {
+    if (!hydrated) return
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+    } catch {
+      // storage lleno o bloqueado: el carrito vive solo en memoria
+    }
+  }, [items, hydrated])
 
   useEffect(() => {
     if (!toast) return
@@ -72,6 +122,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => {
       const existing = prev.find((entry) => entry.key === key)
       if (existing) {
+        if (
+          existing.maxStock !== undefined &&
+          existing.qty >= existing.maxStock
+        ) {
+          setToast("No queda más stock de esa variante")
+          return prev
+        }
         return prev.map((entry) =>
           entry.key === key ? { ...entry, qty: entry.qty + 1 } : entry,
         )
@@ -90,10 +147,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const setQty = useCallback((key: string, qty: number) => {
     setItems((prev) => {
+      const target = prev.find((item) => item.key === key)
+      const capped =
+        target?.maxStock !== undefined ? Math.min(qty, target.maxStock) : qty
       const next =
-        qty <= 0
+        capped <= 0
           ? prev.filter((item) => item.key !== key)
-          : prev.map((item) => (item.key === key ? { ...item, qty } : item))
+          : prev.map((item) => (item.key === key ? { ...item, qty: capped } : item))
       if (next.length === 0) setOpen(false)
       return next
     })
@@ -107,6 +167,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items])
 
   const whatsappHref = useMemo(() => {
+    if (!WHATSAPP_READY) return null
     const lines = items.map(
       (item) =>
         `- ${item.qty}× ${item.name}${item.talle ? ` (talle ${item.talle})` : ""} — ${formatPrice(item.price * item.qty)}`,
@@ -205,8 +266,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
                         <button
                           type="button"
                           onClick={() => setQty(item.key, item.qty + 1)}
+                          disabled={
+                            item.maxStock !== undefined &&
+                            item.qty >= item.maxStock
+                          }
                           aria-label="Agregar uno"
-                          className="flex size-8 items-center justify-center rounded-r-[var(--radius-md)] transition-colors hover:bg-muted focus-visible:outline-3 focus-visible:outline-ring"
+                          className="flex size-8 items-center justify-center rounded-r-[var(--radius-md)] transition-colors hover:bg-muted focus-visible:outline-3 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
                         >
                           <Plus aria-hidden className="size-4" />
                         </button>
@@ -233,20 +298,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 {formatPrice(total)}
               </span>
             </div>
-            <a
-              href={items.length > 0 ? whatsappHref : undefined}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-disabled={items.length === 0}
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "h-12 w-full rounded-xl text-base font-bold",
-                items.length === 0 && "pointer-events-none opacity-45",
-              )}
-            >
-              <ShoppingCart aria-hidden />
-              Enviar pedido por WhatsApp
-            </a>
+            {WHATSAPP_READY ? (
+              <a
+                href={items.length > 0 ? (whatsappHref ?? undefined) : undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-disabled={items.length === 0}
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "h-12 w-full rounded-xl text-base font-bold",
+                  items.length === 0 && "pointer-events-none opacity-45",
+                )}
+              >
+                <ShoppingCart aria-hidden />
+                Enviar pedido por WhatsApp
+              </a>
+            ) : (
+              <p
+                role="alert"
+                className="rounded-xl border border-dashed border-destructive/40 bg-destructive/5 p-3 text-center text-sm text-destructive"
+              >
+                Los pedidos por WhatsApp todavía no están configurados.
+                Falta definir NEXT_PUBLIC_WHATSAPP_NUMBER.
+              </p>
+            )}
             <Button
               variant="outline"
               size="lg"

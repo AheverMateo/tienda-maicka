@@ -34,11 +34,13 @@ export function ProductCard({ product }: ProductCardProps) {
         notify("Elegí un talle primero")
         return
       }
+      const stock = variants.find((v) => v.talle === selectedTalle)?.stock
       addItem({
         productId: product.id,
         name: product.name,
         price: product.price,
         talle: selectedTalle,
+        maxStock: stock,
       })
     } else {
       addItem({
