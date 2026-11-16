@@ -82,7 +82,8 @@
 | slug | text | URL-friendly, único |
 | description | text | Descripción (opcional) |
 | price | int | Precio en centavos |
-| type | text | `'ropa'` u `'otros'` |
+| type | text | `'ropa'` (usa talles) u `'otros'` |
+| category_id | uuid | FK → categories (nullable) |
 | off | bool | true = oculto/agotado |
 | featured | bool | true = aparece en "Recién llegado" |
 

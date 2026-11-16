@@ -42,3 +42,7 @@ next-env.d.ts
 
 # opencode (configuración local de la herramienta)
 /.opencode/
+
+# archivos generados por herramientas (no versionar)
+/PRODUCT.md
+/AGENTS.md
