@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { DM_Sans, Bricolage_Grotesque, Geist } from "next/font/google";
+import "./globals.css";
+import { DM_Sans, Bricolage_Grotesque } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/layout/site-header";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+import { CartProvider } from "@/components/cart/cart-provider";
 
 const dmSans = DM_Sans({
   weight: ["400", "500", "700"],
@@ -11,7 +11,7 @@ const dmSans = DM_Sans({
 });
 
 const bricolageGrotesque = Bricolage_Grotesque({
-  weight: ["700", "800"],
+  weight: ["600", "700", "800"],
   variable: "--font-bricolage-grotesque",
 });
 
@@ -28,11 +28,13 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={cn("h-full", "antialiased", dmSans.variable, bricolageGrotesque.variable, "font-sans", geist.variable)}
+      className={cn("h-full", dmSans.variable, bricolageGrotesque.variable)}
     >
       <body className="min-h-full bg-background font-sans text-foreground antialiased">
-        <SiteHeader />
-        {children}
+        <CartProvider>
+          <SiteHeader />
+          {children}
+        </CartProvider>
       </body>
     </html>
   );

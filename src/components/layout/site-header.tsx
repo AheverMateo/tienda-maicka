@@ -1,10 +1,16 @@
+"use client"
+
 import Link from "next/link"
-import { Search, ShoppingCart } from "lucide-react"
+import { ShoppingCart } from "lucide-react"
+import { useCart } from "@/components/cart/cart-provider"
+import { formatPrice } from "@/lib/format"
 
 export function SiteHeader() {
+  const { count, total, setOpen } = useCart()
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
+      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between gap-4">
           <Link
             href="/"
@@ -18,55 +24,22 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          <form
-            role="search"
-            action="/"
-            method="get"
-            className="relative hidden w-full max-w-xl md:block"
-          >
-            <Search
-              aria-hidden
-              strokeWidth={2}
-              className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-            />
-            <input
-              type="search"
-              name="q"
-              placeholder="Buscar productos..."
-              aria-label="Buscar productos"
-              className="h-11 w-full rounded-full border border-input bg-card pl-11 pr-4 text-[15px] outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-            />
-          </form>
-
           <button
             type="button"
-            disabled
-            aria-label="Carrito (próximamente)"
-            title="Carrito disponible próximamente"
-            className="relative inline-flex size-11 shrink-0 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted focus-visible:outline-3 focus-visible:outline-ring disabled:cursor-not-allowed"
+            onClick={() => setOpen(true)}
+            aria-label={`Ver pedido (${count} ${count === 1 ? "producto" : "productos"})`}
+            className="relative inline-flex h-11 shrink-0 items-center gap-2 rounded-full border border-border bg-card px-4 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-3 focus-visible:outline-ring"
           >
-            <ShoppingCart aria-hidden strokeWidth={1.75} className="size-6" />
-            <span className="absolute right-0 top-0 flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-bold leading-none text-primary-foreground">
-              0
+            <ShoppingCart aria-hidden strokeWidth={1.75} className="size-5" />
+            <span className="hidden sm:inline">
+              {count > 0 ? formatPrice(total) : "Pedido"}
             </span>
+            {count > 0 && (
+              <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-bold leading-none text-primary-foreground">
+                {count}
+              </span>
+            )}
           </button>
-        </div>
-
-        <div className="pb-3 md:hidden">
-          <form role="search" action="/" method="get" className="relative">
-            <Search
-              aria-hidden
-              strokeWidth={2}
-              className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-            />
-            <input
-              type="search"
-              name="q"
-              placeholder="Buscar productos..."
-              aria-label="Buscar productos"
-              className="h-11 w-full rounded-full border border-input bg-card pl-11 pr-4 text-[15px] outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-            />
-          </form>
         </div>
       </div>
     </header>
