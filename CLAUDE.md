@@ -70,7 +70,7 @@ npx tsc --noEmit   # verificar tipos
 | 1.4 | Script seed con datos de ejemplo (10-15 productos) | ✅ |
 | 1.5 | Conectar cliente Supabase a Next.js (server components) | ✅ |
 | 1.6 | Layout general: tipografías, colores, header del MVP | ✅ |
-| 1.7 | Grilla de productos en home leyendo de Supabase | ⬜ |
+| 1.7 | Grilla de productos en home leyendo de Supabase | ✅ |
 | 1.8 | Chips de categoría y buscador | ⬜ |
 | 1.9 | Tira "Recién llegado" con productos nuevos | ⬜ |
 | 1.10 | Selector de talle con stock por variante (sin stock → deshabilitado) | ⬜ |
