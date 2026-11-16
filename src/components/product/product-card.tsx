@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Shirt } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { NuevoBadge } from "@/components/product/nuevo-badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useCart } from "@/components/cart/cart-provider"
@@ -79,9 +79,7 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
 
         {product.featured && !isSoldOut && (
-          <Badge className="absolute left-2 top-2 rounded-full bg-hi px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-hi-foreground">
-            Nuevo
-          </Badge>
+          <NuevoBadge className="absolute left-2 top-2 px-2.5 py-0.5" />
         )}
 
         {isSoldOut && (
@@ -122,7 +120,7 @@ export function ProductCard({ product }: ProductCardProps) {
                   aria-pressed={selected}
                   onClick={() => setSelectedTalle(variant.talle)}
                   className={cn(
-                    "h-9 min-w-10 rounded-[var(--radius-md)] border border-border bg-transparent px-2 text-sm font-medium transition-colors",
+                    "h-11 min-w-11 rounded-[var(--radius-md)] border border-border bg-transparent px-2.5 text-sm font-medium transition-colors",
                     "hover:border-primary hover:text-primary",
                     "focus-visible:outline-3 focus-visible:outline-ring",
                     "disabled:cursor-not-allowed disabled:opacity-40 disabled:line-through",

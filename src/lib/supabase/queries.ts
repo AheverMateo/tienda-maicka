@@ -9,7 +9,7 @@ import type {
 export type ProductCard = Product & {
   variants: Pick<Variant, "talle" | "stock">[];
   product_images: Pick<ProductImage, "url" | "is_primary" | "order_index">[];
-  category: Pick<Category, "id" | "name" | "slug"> | null;
+  category: Pick<Category, "id" | "name" | "slug" | "order_index"> | null;
 };
 
 export async function getProducts(): Promise<ProductCard[]> {
@@ -18,7 +18,7 @@ export async function getProducts(): Promise<ProductCard[]> {
   const { data, error } = await supabase
     .from("products")
     .select(
-      "*, variants(talle, stock), product_images(url, is_primary, order_index), category:categories(id, name, slug)",
+      "*, variants(talle, stock), product_images(url, is_primary, order_index), category:categories(id, name, slug, order_index)",
     )
     .eq("off", false)
     .order("created_at", { ascending: false });

@@ -3,8 +3,9 @@
 import { useMemo, useState } from "react"
 import Image from "next/image"
 import { Shirt, Search } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+
 import { Input } from "@/components/ui/input"
+import { NuevoBadge } from "@/components/product/nuevo-badge"
 import { ProductCard } from "@/components/product/product-card"
 import { useCart } from "@/components/cart/cart-provider"
 import { formatPrice } from "@/lib/format"
@@ -19,11 +20,16 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
   const [category, setCategory] = useState<string>(ALL)
 
   const categories = useMemo(() => {
-    const names = new Set<string>()
+    const byName = new Map<string, number>()
     for (const p of products) {
-      if (p.category?.name) names.add(p.category.name)
+      if (p.category?.name) {
+        byName.set(p.category.name, p.category.order_index ?? 999)
+      }
     }
-    return [ALL, ...names]
+    const sorted = [...byName.entries()]
+      .sort((a, b) => a[1] - b[1] || a[0].localeCompare(b[0], "es"))
+      .map(([name]) => name)
+    return [ALL, ...sorted]
   }, [products])
 
   const filtered = useMemo(() => {
@@ -134,9 +140,7 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
                         <Shirt className="size-8" strokeWidth={1.5} />
                       </span>
                     )}
-                    <Badge className="absolute left-2 top-2 rounded-full bg-hi px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-hi-foreground">
-                      Nuevo
-                    </Badge>
+                    <NuevoBadge className="absolute left-2 top-2 px-2 text-[11px]" />
                   </span>
                   <span className="mt-1.5 block line-clamp-2 text-[13px] font-semibold leading-tight">
                     {p.name}
