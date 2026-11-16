@@ -1,0 +1,187 @@
+{
+  "title": "Elegí el mundo visual de la tienda",
+  "question": "Segunda mano: el roll asignó “El laboratorio fotográfico”. ¿Te la llevás, elegís otra carta, o pedís otra?",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "El laboratorio fotográfico",
+      "kicker": "THE ROLL",
+      "lineage": "el sobre de fotos reveladas: manila, papel negro mate, sellos rojo y azul, el laboratorio del barrio",
+      "thesis": "El catálogo como un sobre de fotos reveladas: la selección te espera adentro, prendida con cinta.",
+      "palette": ["#f5f0e6", "#33302c", "#b3342e", "#2f4a7a"],
+      "materials": ["sobre manila", "papel fotográfico negro", "sellos de laboratorio", "cinta kraft", "esquineritos"],
+      "viewport": "Un sobre abierto a gran tamaño ocupa la primera pantalla: los dos productos más nuevos salen como dos fotos del sobre; abajo, el rail de fichas.",
+      "risk": "Si el sobre se vuelve decorado, pierde función; el sobre es el contenedor del pedido, no un atrezzo.",
+      "raised": [
+        { "from": "challenger-signboard-canyon", "raise": "El estado abierto/agotado se enciende y se apaga como un cartel, no como un badge." },
+        { "from": "challenger-vu-bridge", "raise": "El stock se lee de un vistazo en una sola línea, como un bridge; nada importante se entierra." },
+        { "from": "challenger-crt-arcade", "raise": "El mostaza brillante se reserva solo para el estado ganador (nuevo/seleccionado), nunca decorativo." },
+        { "from": "challenger-jacquard", "raise": "El rail es una banda continua de fichas punchadas; el ritmo es la banda, no el gap." },
+        { "from": "challenger-rain-cityscape", "raise": "La foto y el precio nunca se separan: comparten franja, como la vidriera y su reflejo." }
+      ],
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "marca + carrito sobre", "x": 0, "y": 0, "w": 12, "h": 1, "accent": true },
+          { "label": "sobre manila protagonista", "x": 0, "y": 1, "w": 12, "h": 4, "accent": true },
+          { "label": "cómo comprar (sellos)", "x": 0, "y": 5, "w": 12, "h": 1 },
+          { "label": "rail fichas perforadas", "x": 0, "y": 6, "w": 12, "h": 2 },
+          { "label": "chips", "x": 0, "y": 8, "w": 12, "h": 1 },
+          { "label": "grilla sobres-foto", "x": 0, "y": 9, "w": 12, "h": 1 }
+        ]
+      }
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "La cocina de la casa",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "la mesa familiar: mantel a cuadros rojo, tetera esmaltada, recetario manuscrito, bizcochuelo en fuente",
+      "thesis": "Comprar acá es como que te inviten a la mesa: la dueña te sirve, vos te llevás lo que elijas.",
+      "palette": ["#f6efe3", "#3a2e24", "#b4432a", "#d98e4a"],
+      "materials": ["mantel a cuadros", "tetera esmaltada", "recetario manuscrito", "papel encerado"],
+      "viewport": "Cuadro de bienvenida: la mesa servida con las novedades como platos; el pedido se arma como una receta.",
+      "risk": "Es el más familiar de todos; cálido, pero le puede ganar el lugar a las fotos de producto.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "cartel cocina + carrito", "x": 0, "y": 0, "w": 12, "h": 1, "accent": true },
+          { "label": "mesa servida protagonista", "x": 0, "y": 1, "w": 12, "h": 4, "accent": true },
+          { "label": "cómo comprar (receta)", "x": 0, "y": 5, "w": 12, "h": 1 },
+          { "label": "rail novedades", "x": 0, "y": 6, "w": 12, "h": 2 },
+          { "label": "chips", "x": 0, "y": 8, "w": 12, "h": 1 },
+          { "label": "grilla estilo recetario", "x": 0, "y": 9, "w": 12, "h": 1 }
+        ]
+      }
+    },
+    {
+      "id": "challenger-googie",
+      "kind": "challenger",
+      "catalogId": "design-canon-googie-starburst-diner",
+      "label": "Googie: la fonda espacial",
+      "verdict": "competitive",
+      "lineage": "fonda Googie de ruta, signo starburst, laminado turquesa y coral",
+      "palette": ["#0f4c5c", "#ff6f61", "#f2efe9", "#1f1f1f"],
+      "materials": ["laminado boomerang", "cromo", "neón", "pizarra de mostrador"],
+      "thesis": "El catálogo como la fonda de ruta de la esquina: cartel que gira, barra que orbita.",
+      "viewport": "Un swoop arquitectónico lleva del signo starburst a la barra; el menú cuelga de él.",
+      "risk": "El retro-futurismo puede sentirse postal si el swoop se pasa de ornamento.",
+      "case": "Gana en jerarquía de carta de menú (precios al instante) y diversión; pierde en la intimidad del mostrador familiar.",
+      "hero": "https://impeccable.style/worlds/cards/design-canon-googie-starburst-diner-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/design-canon-googie-starburst-diner.webp"
+    },
+    {
+      "id": "challenger-signboard-canyon",
+      "kind": "challenger",
+      "catalogId": "vernacular-ephemera-signboard-canyon-midnight",
+      "label": "Signboard canyon de medianoche",
+      "verdict": "declined",
+      "lineage": "Tokyo nocturno: un edificio, un índice de signos apilados",
+      "palette": ["#0b0b10", "#ff3b30", "#f5f0e6", "#ff9f0a"],
+      "materials": ["signos backlit", "neón", "asfalto mojado"],
+      "thesis": "El catálogo como un edificio de signos: cada piso enciende lo suyo.",
+      "viewport": "Espina vertical de signos apilados; el bajo refulge más fuerte.",
+      "risk": "Es el lenguaje de la noche y la fiesta; la mamá compra a las 19hs con la olla puesta.",
+      "case": "Pierde en identificación de audiencia (noche/fiesta) y en calma de compra (todo grita a la vez).",
+      "kept": "El estado abierto/agotado como iluminación de cartel: pasó a la tarjeta de producto.",
+      "hero": "https://impeccable.style/worlds/cards/vernacular-ephemera-signboard-canyon-midnight-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/vernacular-ephemera-signboard-canyon-midnight.webp"
+    },
+    {
+      "id": "challenger-vu-bridge",
+      "kind": "challenger",
+      "catalogId": "signals-instruments-vu-meter-bridge",
+      "label": "VU bridge de la consola",
+      "verdict": "declined",
+      "lineage": "bridge de agujas VU detrás de vidrio en un estudio de grabación",
+      "palette": ["#f2ecdd", "#1b1b1b", "#c0392b", "#4a3a2a"],
+      "materials": ["vidrio", "nogal", "acero", "carátula marfil"],
+      "thesis": "El catálogo como un bridge de VU meters: leés el cuarto de una pasada.",
+      "viewport": "Fila de medidores idénticos; la aguja se inclina en masa al compás.",
+      "risk": "Es un instrumento de operar: la mamá no viene a mezclar, viene a comprar.",
+      "case": "Pierde las dos axes: no identifica a la audiencia y la claridad de ‘agregar al pedido’ se disuelve en canales.",
+      "kept": "El estado de stock se lee de un barrío de un vistazo: pasó a la tarjeta.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-vu-meter-bridge-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-vu-meter-bridge.webp"
+    },
+    {
+      "id": "challenger-crt-arcade",
+      "kind": "challenger",
+      "catalogId": "medium-native-crt-arcade-pixel-glow",
+      "label": "CRT arcade con scanlines",
+      "verdict": "declined",
+      "lineage": "gabinete arcade de los 90, fósforo con scanlines y bloom",
+      "palette": ["#05060a", "#ffe94a", "#23d18b", "#ff5da2"],
+      "materials": ["scanlines", "bloom fósforo", "sprites 16 colores"],
+      "thesis": "El catálogo como un gabinete arcade: 240 líneas y gloria.",
+      "viewport": "El playfield recomponiendo en tiles; el blanco-oro reservado.",
+      "risk": "Su audiencia son los hijos, no quien paga; además pica en gama baja.",
+      "case": "Pierde identificación (no es el imaginario de la mamá) y claridad (sprites no comunican talle real ni stock).",
+      "kept": "El color ganador reservado por ley: pasó a ‘Nuevo’ y selección.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-crt-arcade-pixel-glow-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/medium-native-crt-arcade-pixel-glow.webp"
+    },
+    {
+      "id": "challenger-rain-cityscape",
+      "kind": "challenger",
+      "catalogId": "light-shadow-caustics-rain-night-cityscape",
+      "label": "Ciudad anocheciendo bajo la lluvia",
+      "verdict": "declined",
+      "lineage": "blue hour: torres negras, tránsito ámbar, calles mojadas que reflejan",
+      "palette": ["#0f1b2d", "#e8a33d", "#c9d6df", "#05070d"],
+      "materials": ["asfalto mojado", "neblina", "venas de tránsito"],
+      "thesis": "El catálogo como una ciudad pasando de azul a noche cerrada.",
+      "viewport": "Bandas sincronizadas: skyline, calle, reflejo.",
+      "risk": "Es el imaginario del que sale de noche; la mamá compra de día con la economía de la casa.",
+      "case": "Pierde audiencia y claridad: un nocturno contemplativo no vende remeras de mostrador.",
+      "kept": "Foto y precio nunca se separan: comparten franja, como la vidriera y su reflejo.",
+      "hero": "https://impeccable.style/worlds/cards/light-shadow-caustics-rain-night-cityscape-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/light-shadow-caustics-rain-night-cityscape.webp"
+    },
+    {
+      "id": "challenger-jacquard",
+      "kind": "challenger",
+      "catalogId": "textiles-weave-drape-fashion-jacquard-punched-brocade",
+      "label": "Jacquard punchado de medianoche",
+      "verdict": "declined",
+      "lineage": "brocado jacquard: tarjetas perforadas, seda medianoche, hilo oro",
+      "palette": ["#131a2e", "#c9a227", "#e8e2d0", "#05070f"],
+      "materials": ["seda", "hilo oro", "tarjetas perforadas"],
+      "thesis": "El catálogo como un motivo tejido en jacquard: cada tarjeta una instrucción.",
+      "viewport": "Bandas de motivo: finished motif, weave row, card, warp lift.",
+      "risk": "Es couture de museo: el mostrador del barrio no teje motivos para remeras de $12.000.",
+      "case": "Pierde audiencia (aspiracional frío) y claridad (el traceability no sirve para armar un pedido).",
+      "kept": "El ritmo es una banda continua: pasó al rail de fichas.",
+      "hero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-jacquard-punched-brocade-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-jacquard-punched-brocade.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "El estándar de la categoría",
+    "thesis": "Lo que esta categoría envía, ejecutado a full craft: grid limpio, buscador, chips, fotos grandes.",
+    "palette": ["#faf7f2", "#111111", "#b4432a"],
+    "materials": ["grid shadcn", "fotografía discreta", "tipografía sobria"],
+    "viewport": "La disposición que la visitante espera, sin personalidad declarada.",
+    "risk": "Indistinguible de la competencia por diseño; cero memoria.",
+    "wireframe": {
+      "cols": 12,
+      "rows": 10,
+      "regions": [
+        { "label": "nav estándar", "x": 0, "y": 0, "w": 12, "h": 1 },
+        { "label": "hero chico", "x": 0, "y": 1, "w": 12, "h": 2 },
+        { "label": "buscador", "x": 0, "y": 3, "w": 12, "h": 1 },
+        { "label": "chips", "x": 0, "y": 4, "w": 12, "h": 1 },
+        { "label": "grilla de cards", "x": 0, "y": 5, "w": 12, "h": 5 }
+      ]
+    }
+  },
+  "steer": true
+}

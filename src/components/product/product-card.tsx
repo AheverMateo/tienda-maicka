@@ -5,7 +5,6 @@ import Image from "next/image"
 import { Shirt } from "lucide-react"
 import { NuevoBadge } from "@/components/product/nuevo-badge"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { useCart } from "@/components/cart/cart-provider"
 import { formatPrice } from "@/lib/format"
 import { cn } from "@/lib/utils"
@@ -53,11 +52,28 @@ export function ProductCard({ product }: ProductCardProps) {
   }
 
   return (
-    <Card
+    <article
       id={`p-${product.id}`}
-      className="gap-0 overflow-hidden rounded-[var(--radius-card)] border-border py-0 scroll-mt-24 transition-[transform,box-shadow] duration-200 motion-safe:hover:-translate-y-0.5 hover:shadow-md"
+      className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-border bg-card shadow-[0_1px_0_0_var(--border)] scroll-mt-24 transition-[transform,box-shadow] duration-200 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-12px_rgba(40,35,30,0.45)]"
     >
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-secondary">
+      <div className="relative aspect-[4/5] w-full overflow-hidden border-b border-dashed border-border bg-secondary">
+        <span
+          aria-hidden
+          className="absolute left-1.5 top-1.5 size-4 border-l-2 border-t-2 border-foreground/40"
+        />
+        <span
+          aria-hidden
+          className="absolute right-1.5 top-1.5 size-4 border-r-2 border-t-2 border-foreground/40"
+        />
+        <span
+          aria-hidden
+          className="absolute bottom-1.5 left-1.5 size-4 border-b-2 border-l-2 border-foreground/40"
+        />
+        <span
+          aria-hidden
+          className="absolute bottom-1.5 right-1.5 size-4 border-b-2 border-r-2 border-foreground/40"
+        />
+
         {image ? (
           <Image
             src={image.url}
@@ -71,39 +87,39 @@ export function ProductCard({ product }: ProductCardProps) {
             aria-hidden
             className="flex h-full w-full flex-col items-center justify-center gap-2 bg-secondary text-muted-foreground"
           >
-            <Shirt className="size-9" strokeWidth={1.5} />
-            <span className="text-[10px] font-medium uppercase tracking-widest">
+            <Shirt className="size-10" strokeWidth={1.25} />
+            <span className="text-[10px] font-medium uppercase tracking-[0.18em]">
               Foto a la brevedad
             </span>
           </div>
         )}
 
         {product.featured && !isSoldOut && (
-          <NuevoBadge className="absolute left-2 top-2 px-2.5 py-0.5" />
+          <NuevoBadge className="absolute left-2 top-2" />
         )}
 
         {isSoldOut && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/55">
-            <span className="font-heading text-lg font-extrabold uppercase tracking-wide text-white">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="-rotate-6 rounded-[var(--radius-ticket)] border-[3px] border-destructive bg-card/85 px-4 py-1.5 font-heading text-lg font-extrabold uppercase tracking-[0.15em] text-destructive">
               Agotado
             </span>
           </div>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
+      <div className="flex flex-1 flex-col gap-2 p-2.5 sm:p-3">
         <div>
           {product.category && (
-            <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-sello-blue">
               {product.category.name}
             </span>
           )}
-          <h3 className="line-clamp-2 text-sm font-semibold leading-snug">
+          <h3 className="line-clamp-2 font-heading text-[13px] font-bold leading-snug sm:text-sm">
             {product.name}
           </h3>
         </div>
 
-        <p className="font-heading text-lg font-bold tabular-nums">
+        <p className="font-heading text-lg font-extrabold tabular-nums leading-none tracking-tight sm:text-xl">
           {formatPrice(product.price)}
         </p>
 
@@ -120,12 +136,12 @@ export function ProductCard({ product }: ProductCardProps) {
                   aria-pressed={selected}
                   onClick={() => setSelectedTalle(variant.talle)}
                   className={cn(
-                    "h-11 min-w-11 rounded-[var(--radius-md)] border border-border bg-transparent px-2.5 text-sm font-medium transition-colors",
+                    "h-11 min-w-11 rounded-[var(--radius-ticket)] border border-dashed border-border bg-transparent px-2.5 font-mono text-sm font-semibold transition-colors",
                     "hover:border-primary hover:text-primary",
                     "focus-visible:outline-3 focus-visible:outline-ring",
                     "disabled:cursor-not-allowed disabled:opacity-40 disabled:line-through",
                     selected &&
-                      "border-primary bg-primary text-primary-foreground hover:text-primary-foreground",
+                      "border-solid border-primary bg-primary text-primary-foreground shadow-[inset_0_2px_3px_rgba(0,0,0,0.3)] hover:text-primary-foreground",
                   )}
                 >
                   {variant.talle}
@@ -136,13 +152,13 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
 
         <Button
-          className="mt-auto h-11 w-full rounded-xl text-[15px] font-bold"
+          className="mt-auto h-11 w-full rounded-[var(--radius-ticket)] border border-primary-foreground/20 bg-primary text-sm font-extrabold uppercase tracking-[0.12em] text-primary-foreground shadow-[inset_0_-3px_0_rgba(0,0,0,0.25)] hover:bg-primary/90"
           disabled={isSoldOut}
           onClick={handleAdd}
         >
-          {isSoldOut ? "No disponible" : "Agregar al pedido"}
+          {isSoldOut ? "No disponible" : "Al pedido"}
         </Button>
       </div>
-    </Card>
+    </article>
   )
 }

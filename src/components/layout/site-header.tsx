@@ -28,14 +28,14 @@ export function SiteHeader() {
             type="button"
             onClick={() => setOpen(true)}
             aria-label={`Ver pedido (${count} ${count === 1 ? "producto" : "productos"})`}
-            className="relative inline-flex h-11 shrink-0 items-center gap-2 rounded-full border border-border bg-card px-4 text-sm font-semibold transition-colors hover:bg-muted focus-visible:outline-3 focus-visible:outline-ring"
+            className="relative inline-flex h-11 shrink-0 items-center gap-2 rounded-[var(--radius-ticket)] border border-border bg-card px-4 text-sm font-extrabold uppercase tracking-wider transition-colors hover:border-foreground hover:bg-muted focus-visible:outline-3 focus-visible:outline-ring"
           >
             <ShoppingCart aria-hidden strokeWidth={1.75} className="size-5" />
             <span className="hidden sm:inline">
               {count > 0 ? formatPrice(total) : "Pedido"}
             </span>
             {count > 0 && (
-              <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-bold leading-none text-primary-foreground">
+              <span className="absolute -right-1.5 -top-1.5 flex size-6 -rotate-6 items-center justify-center rounded-full border-2 border-hi-foreground/60 bg-hi text-[11px] font-extrabold leading-none text-hi-foreground tabular-nums">
                 {count}
               </span>
             )}

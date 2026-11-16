@@ -3,9 +3,8 @@
 import { useMemo, useState } from "react"
 import Image from "next/image"
 import { Shirt, Search } from "lucide-react"
-
-import { Input } from "@/components/ui/input"
 import { NuevoBadge } from "@/components/product/nuevo-badge"
+import { Input } from "@/components/ui/input"
 import { ProductCard } from "@/components/product/product-card"
 import { useCart } from "@/components/cart/cart-provider"
 import { formatPrice } from "@/lib/format"
@@ -13,6 +12,12 @@ import { cn } from "@/lib/utils"
 import type { ProductCard as ProductWithRelations } from "@/lib/supabase/queries"
 
 const ALL = "Todo"
+
+const STEPS = [
+  "Elegí tus productos",
+  "Armá el pedido",
+  "Lo cerramos por WhatsApp",
+]
 
 export function Catalog({ products }: { products: ProductWithRelations[] }) {
   const { count, total, setOpen } = useCart()
@@ -55,6 +60,8 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
     [products],
   )
 
+  const envelopePicks = featured.slice(0, 2)
+
   const focusProduct = (id: string) => {
     setCategory(ALL)
     setQuery("")
@@ -66,51 +73,130 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
 
   return (
     <>
-      <header className="pt-7">
-        <h1 className="text-balance font-heading text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl">
+      <header className="pt-6">
+        <h1 className="text-balance font-heading text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
           Novedades y catálogo
         </h1>
-        <p className="mt-2 max-w-[46ch] text-muted-foreground">
-          Todo lo que subimos, ordenado en un solo lugar. Elegí, armá tu
-          pedido y lo enviamos por WhatsApp.
+        <p className="mt-2 max-w-[48ch] text-muted-foreground">
+          Elegí, armá tu pedido y la dueña te lo confirma por WhatsApp.
         </p>
       </header>
 
+      {envelopePicks.length > 0 && (
+        <section
+          aria-label="Recién llegado"
+          className="mt-5 overflow-hidden rounded-[var(--radius-card)] border border-kraft-deep bg-kraft"
+        >
+          <div className="relative flex flex-col gap-4 p-4 pb-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <div className="relative flex h-44 shrink-0 items-end justify-center sm:h-48 sm:w-64">
+              {envelopePicks[0] && (
+                <button
+                  type="button"
+                  onClick={() => focusProduct(envelopePicks[0].id)}
+                  aria-label={`Ver ${envelopePicks[0].name}`}
+                  className="absolute bottom-6 left-2 z-10 w-24 -rotate-6 rounded-sm bg-[#fffdf6] p-1 pb-3 shadow-[0_6px_14px_-6px_rgba(40,35,30,0.5)] transition-transform duration-200 motion-safe:hover:-translate-y-1 focus-visible:outline-3 focus-visible:outline-ring"
+                >
+                  <span className="relative block aspect-[4/5] overflow-hidden bg-secondary">
+                    {envelopePicks[0].product_images[0] ? (
+                      <Image
+                        src={
+                          envelopePicks[0].product_images.find(
+                            (i) => i.is_primary,
+                          )?.url ?? envelopePicks[0].product_images[0].url
+                        }
+                        alt={envelopePicks[0].name}
+                        fill
+                        sizes="96px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center text-muted-foreground">
+                        <Shirt className="size-7" strokeWidth={1.25} />
+                      </span>
+                    )}
+                  </span>
+                </button>
+              )}
+              {envelopePicks[1] && (
+                <button
+                  type="button"
+                  onClick={() => focusProduct(envelopePicks[1].id)}
+                  aria-label={`Ver ${envelopePicks[1].name}`}
+                  className="absolute bottom-2 right-2 z-10 w-24 rotate-[5deg] rounded-sm bg-[#fffdf6] p-1 pb-3 shadow-[0_6px_14px_-6px_rgba(40,35,30,0.5)] transition-transform duration-200 motion-safe:hover:-translate-y-1 focus-visible:outline-3 focus-visible:outline-ring"
+                >
+                  <span className="relative block aspect-[4/5] overflow-hidden bg-secondary">
+                    {envelopePicks[1].product_images[0] ? (
+                      <Image
+                        src={
+                          envelopePicks[1].product_images.find(
+                            (i) => i.is_primary,
+                          )?.url ?? envelopePicks[1].product_images[0].url
+                        }
+                        alt={envelopePicks[1].name}
+                        fill
+                        sizes="96px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center text-muted-foreground">
+                        <Shirt className="size-7" strokeWidth={1.25} />
+                      </span>
+                    )}
+                  </span>
+                </button>
+              )}
+              <div
+                aria-hidden
+                className="absolute bottom-0 h-16 w-full rounded-[var(--radius-ticket)] border border-kraft-deep bg-[#efe4c8] shadow-[inset_0_2px_0_rgba(0,0,0,0.08)] [clip-path:polygon(0_22%,50%_0,100%_22%,100%_100%,0_100%)]"
+              />
+            </div>
+
+            <div className="relative">
+              <span className="inline-block -rotate-2 rounded-[var(--radius-ticket)] border-2 border-sello-blue px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-[0.2em] text-sello-blue">
+                Recién llegado
+              </span>
+              <h2 className="mt-2 font-heading text-xl font-extrabold leading-tight text-[#4a3f2a] sm:text-2xl">
+                Lo último que se cargó, directo del mostrador.
+              </h2>
+              <p className="mt-1 max-w-[36ch] text-sm leading-snug text-[#5d5340]">
+                Mirá las fichas nuevas y armá tu pedido abajo.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       <ol
         aria-label="Cómo comprar"
-        className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px] font-medium text-muted-foreground"
+        className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2"
       >
-        {[
-          "Elegí tus productos",
-          "Armá el pedido",
-          "Lo cerramos por WhatsApp",
-        ].map((step, index) => (
-          <li key={step} className="flex items-center gap-1.5">
+        {STEPS.map((step, index) => (
+          <li
+            key={step}
+            className="flex items-center gap-2 rounded-[var(--radius-ticket)] border border-dashed border-border bg-card px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-foreground sm:text-xs"
+          >
             <span
               aria-hidden
-              className="flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-bold tabular-nums text-primary-foreground"
+              className="flex size-5 items-center justify-center rounded-full bg-sello-blue text-[10px] font-extrabold tabular-nums text-sello-blue-foreground"
             >
               {index + 1}
             </span>
             {step}
-            {index < 2 && (
-              <span aria-hidden className="ml-1 text-border">
-                →
-              </span>
-            )}
           </li>
         ))}
       </ol>
 
-      <div className="mt-6 flex items-baseline gap-3">
-        <h2 className="font-heading text-xl font-bold">Recién llegado</h2>
-        <span className="text-sm text-muted-foreground">
-          lo último que se cargó
+      <div className="mt-5 flex items-center justify-between gap-3 border-b border-dashed border-border pb-1.5">
+        <h2 className="font-heading text-sm font-extrabold uppercase tracking-[0.2em] text-muted-foreground">
+          Fichas
+        </h2>
+        <span className="text-[11px] uppercase tracking-widest text-muted-foreground">
+          {products.length} en el mueble
         </span>
       </div>
 
       {featured.length > 0 ? (
-        <div className="-mx-4 overflow-x-auto px-4 pb-3 pt-2 [scroll-snap-type:x_mandatory] sm:-mx-6 sm:px-6">
+        <div className="-mx-4 overflow-x-auto border-b border-dashed border-border px-4 pb-3 pt-2 sm:-mx-6 sm:px-6">
           <div className="flex w-max gap-3">
             {featured.map((p) => {
               const image =
@@ -121,31 +207,31 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
                   key={p.id}
                   type="button"
                   onClick={() => focusProduct(p.id)}
-                  className="w-28 shrink-0 text-left [scroll-snap-align:start] focus-visible:outline-3 focus-visible:outline-ring sm:w-32"
+                  className="w-24 shrink-0 text-left focus-visible:outline-3 focus-visible:outline-ring sm:w-28"
                 >
-                  <span className="relative block h-40 overflow-hidden rounded-[var(--radius-story)] border-2 border-hi bg-secondary sm:h-44">
+                  <span className="relative block aspect-[4/5] overflow-hidden rounded-[var(--radius-ticket)] border border-border bg-secondary">
                     {image ? (
                       <Image
                         src={image.url}
                         alt={p.name}
                         fill
-                        sizes="128px"
+                        sizes="112px"
                         className="object-cover"
                       />
                     ) : (
                       <span
                         aria-hidden
-                        className="flex h-full w-full items-center justify-center bg-secondary text-muted-foreground"
+                        className="flex h-full w-full items-center justify-center text-muted-foreground"
                       >
-                        <Shirt className="size-8" strokeWidth={1.5} />
+                        <Shirt className="size-7" strokeWidth={1.25} />
                       </span>
                     )}
-                    <NuevoBadge className="absolute left-2 top-2 px-2 text-[11px]" />
+                    <NuevoBadge className="absolute left-1 top-1 size-9" />
                   </span>
-                  <span className="mt-1.5 block line-clamp-2 text-[13px] font-semibold leading-tight">
+                  <span className="mt-1 line-clamp-1 block text-[11px] font-semibold">
                     {p.name}
                   </span>
-                  <span className="block text-xs tabular-nums text-muted-foreground">
+                  <span className="block text-[10px] tabular-nums text-muted-foreground">
                     {formatPrice(p.price)}
                   </span>
                 </button>
@@ -155,7 +241,7 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
         </div>
       ) : (
         <p className="mt-2 text-sm text-muted-foreground">
-          Todavía no hay novedades.
+          Todavía no hay fichas nuevas.
         </p>
       )}
 
@@ -169,9 +255,9 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Buscar: remera, jean, gorra..."
+            placeholder="Buscar la ficha: remera, jean, gorra..."
             aria-label="Buscar productos"
-            className="h-12 rounded-xl border-input bg-card pl-11 text-[15px]"
+            className="h-12 rounded-[var(--radius-ticket)] border-border bg-card pl-11 text-[15px] shadow-[inset_0_2px_3px_rgba(40,35,30,0.12)] placeholder:text-muted-foreground"
           />
         </div>
 
@@ -189,11 +275,11 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
                 aria-pressed={active}
                 onClick={() => setCategory(c)}
                 className={cn(
-                  "h-9 shrink-0 rounded-[var(--radius-chip)] border border-border bg-card px-4 text-sm font-medium transition-colors",
-                  "hover:border-primary hover:text-primary",
+                  "h-10 shrink-0 rounded-[var(--radius-ticket)] border border-dashed border-border bg-card px-3.5 text-xs font-bold uppercase tracking-wider transition-colors",
+                  "hover:border-foreground hover:text-foreground",
                   "focus-visible:outline-3 focus-visible:outline-ring",
                   active &&
-                    "border-primary bg-primary text-primary-foreground hover:text-primary-foreground",
+                    "border-solid border-primary bg-primary text-primary-foreground shadow-[inset_0_2px_3px_rgba(0,0,0,0.3)] hover:text-primary-foreground",
                 )}
               >
                 {c}
@@ -204,25 +290,36 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
       </div>
 
       {filtered.length > 0 ? (
-        <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {filtered.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
-        <p className="mt-10 rounded-[var(--radius-card)] border border-dashed border-border py-12 text-center text-muted-foreground">
-          No encontramos nada con eso. Probá con otra palabra o categoría.
-        </p>
+        <div className="mt-10 flex flex-col items-center gap-2 rounded-[var(--radius-card)] border border-dashed border-border bg-card px-6 py-12 text-center">
+          <p className="font-heading text-base font-extrabold uppercase tracking-[0.2em] text-muted-foreground">
+            Sin fichas así
+          </p>
+          <p className="max-w-[36ch] text-sm text-muted-foreground">
+            No encontramos nada con eso. Probá con otra palabra o categoría.
+          </p>
+        </div>
       )}
 
       {count > 0 && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur">
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t-2 border-kraft-deep bg-kraft pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-0 right-0 top-0 border-t border-dashed border-kraft-deep/80"
+          />
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="mx-auto flex h-12 w-full max-w-lg items-center justify-center rounded-xl bg-primary font-bold tabular-nums text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-3 focus-visible:outline-ring"
+            className="mx-auto flex h-12 w-full max-w-lg items-center justify-center gap-3 rounded-[var(--radius-ticket)] bg-primary px-4 font-heading text-sm font-extrabold uppercase tracking-[0.15em] text-primary-foreground shadow-[inset_0_-3px_0_rgba(0,0,0,0.25)] transition-colors hover:bg-primary/90 focus-visible:outline-3 focus-visible:outline-ring"
           >
-            Ver pedido ({count}) · {formatPrice(total)}
+            <span className="tabular-nums">Ver pedido · {count}</span>
+            <span aria-hidden className="opacity-60">·</span>
+            <span className="tabular-nums">{formatPrice(total)}</span>
           </button>
         </div>
       )}

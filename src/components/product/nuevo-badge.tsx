@@ -1,15 +1,18 @@
-import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
 export function NuevoBadge({ className }: { className?: string }) {
   return (
-    <Badge
+    <span
+      aria-label="Nuevo"
       className={cn(
-        "rounded-full bg-hi px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-hi-foreground",
+        "inline-flex size-12 -rotate-6 flex-col items-center justify-center rounded-full bg-hi leading-none text-hi-foreground",
+        "border-2 border-hi-foreground/70 shadow-[inset_0_0_0_2px_var(--hi)]",
         className,
       )}
     >
-      Nuevo
-    </Badge>
+      <span className="font-heading text-[10px] font-extrabold uppercase tracking-widest">
+        Nuevo
+      </span>
+    </span>
   )
 }

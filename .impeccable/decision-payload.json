@@ -1,0 +1,189 @@
+{
+  "title": "Elegí el mundo visual de la tienda",
+  "question": "El roll asignó “Muestrario de retazos”. ¿Te lo llevás, elegís otra carta, o pedís otra mano?",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Muestrario de retazos",
+      "kicker": "THE ROLL",
+      "lineage": "libros de muestras de tela pre-web, tiendas de telas por metro",
+      "thesis": "Cada producto es una muestra de tela: el catálogo como muestrario, no como vidriera.",
+      "palette": ["#efe7da", "#28231e", "#28498f", "#d98e4a"],
+      "materials": ["papel kraft", "retazos con orilla", "alfileres de latón", "costura punteada", "etiquetas de mostrador"],
+      "viewport": "Retazo-protagonista: el producto más nuevo a gran escala sobre kraft, orilla cosida, precio prendido con alfiler; abajo, el rail y la grilla de muestras.",
+      "risk": "Si la costura se pasa de decorado, se lee artesanal de catálogo; hay que coser solo donde sirve.",
+      "raised": [
+        { "from": "challenger-ebru", "raise": "El color nunca se mezcla: cada superficie lleva una sola hue a plena fuerza; nada de tintes diluidos." },
+        { "from": "challenger-cutting-bench", "raise": "La barra inferior de pedido es una lengüeta de cinta doblada, no un botón: el doblez es la affordance." },
+        { "from": "challenger-noir-one-sheet", "raise": "La profundidad se modela con sombras sólidas, jamás con gradientes." },
+        { "from": "challenger-mecha-crisis-wall", "raise": "El estado de stock se lee de un vistazo: un bloque bravo, nunca un tinte." },
+        { "from": "challenger-gravity-rain", "raise": "Un solo movimiento dominante por viewport; nada compite con él." },
+        { "from": "challenger-raku", "raise": "Asimetría como ley: las muestras pueden sentarse pocos grados fuera de eje; mano, no grid estéril." }
+      ],
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "marca + carrito", "x": 0, "y": 0, "w": 12, "h": 1, "accent": true },
+          { "label": "MUESTRA protagonista (retazo)", "x": 0, "y": 1, "w": 12, "h": 4, "accent": true },
+          { "label": "cómo comprar", "x": 0, "y": 5, "w": 12, "h": 1 },
+          { "label": "rail recién llegado (cintas)", "x": 0, "y": 6, "w": 12, "h": 2 },
+          { "label": "chips", "x": 0, "y": 8, "w": 12, "h": 1 },
+          { "label": "grilla de muestras 2-4 col", "x": 0, "y": 9, "w": 12, "h": 1 }
+        ]
+      }
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "El almacén de la esquina",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "almacén/verdulería de barrio: estantería con etiquetas escritas a mano, precio grande, trato de mostrador",
+      "thesis": "La estantería del almacén de la esquina: etiqueta escrita a mano, precio honesto, la dueña del otro lado.",
+      "palette": ["#f7f2e8", "#20301f", "#1f4d33", "#c33b2a"],
+      "materials": ["etiquetas de góndola", "pintura esmalte", "papel kraft", "sellos de goma"],
+      "viewport": "Estantería protagonista: los más nuevos como etiqueta de góndola grande; categorías como tablones de madera pintada.",
+      "risk": "Es el más familiar de todos; familiar es un trade legítimo pero no es distinción.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "cartel de almacén + carrito", "x": 0, "y": 0, "w": 12, "h": 1, "accent": true },
+          { "label": "etiqueta-góndola protagonista", "x": 0, "y": 1, "w": 12, "h": 4, "accent": true },
+          { "label": "tablones de categoría", "x": 0, "y": 5, "w": 12, "h": 1 },
+          { "label": "rail recién llegado", "x": 0, "y": 6, "w": 12, "h": 2 },
+          { "label": "buscador + chips", "x": 0, "y": 8, "w": 12, "h": 1 },
+          { "label": "grilla tipo góndola", "x": 0, "y": 9, "w": 12, "h": 1 }
+        ]
+      }
+    },
+    {
+      "id": "challenger-ebru",
+      "kind": "challenger",
+      "catalogId": "medium-native-ebru-floated-pigment",
+      "label": "Ebru: pigmento flotado",
+      "verdict": "declined",
+      "lineage": "marbling otomano sobre baño espesado, una sola pasada",
+      "palette": ["#f5efe4", "#233a63", "#a03a2a", "#2a6e5c"],
+      "materials": ["baño de pigmento", "estilete", "papel sized", "un contacto"],
+      "thesis": "El catálogo como una hoja levantada de un baño: irrepetible por construcción.",
+      "viewport": "Composición única por carga; el catálogo se reinventa cada visita.",
+      "risk": "Exige canvas fluido en gama baja y destruye el stock honesto: nada es estable.",
+      "case": "Pierde las dos axes: la mamá no identifica un baño de pigmento con su compra semanal, y el stock por talle no puede expresarse en un líquido.",
+      "kept": "El color nunca se mezcla: una hue plena por superficie.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-ebru-floated-pigment-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/medium-native-ebru-floated-pigment.webp"
+    },
+    {
+      "id": "challenger-cutting-bench",
+      "kind": "challenger",
+      "catalogId": "operate-a-cutting-bench-select-rail",
+      "label": "Cutting bench: rail de edición",
+      "verdict": "declined",
+      "lineage": "moviola de corte de cine: rail perforado, frames punchados, cinta naranja",
+      "palette": ["#0a0a08", "#ff6a00", "#f2ede4"],
+      "materials": ["grano de cine 35mm", "cinta adhesiva naranja", "marco punchado"],
+      "thesis": "El catálogo como una work-print en el banco de corte.",
+      "viewport": "Un strip que scrubs con inercia y clavija de cinta donde te detuviste.",
+      "risk": "Es el lenguaje de operar, no de persuadir: la mamá está mirando ropa, no montando una peli.",
+      "case": "Gana en craft pero pierde identidad de audiencia: nadie en su casa opera una moviola; gana nada en claridad de compra.",
+      "kept": "La lengüeta de cinta doblada como marca de ‘donde paraste’: pasó a la barra de pedido.",
+      "hero": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail.webp"
+    },
+    {
+      "id": "challenger-noir-one-sheet",
+      "kind": "challenger",
+      "catalogId": "posters-covers-sleeves-noir-one-sheet-duotone",
+      "label": "One-sheet noir de dos tintas",
+      "verdict": "declined",
+      "lineage": "one-sheet de cine negro de posguerra, ámbar agrio sobre papel crema",
+      "palette": ["#171512", "#d9a441", "#efe6d0"],
+      "materials": ["dos tintas", "sombra dura", "bloque de billing ruled"],
+      "thesis": "Cada estreno como un afiche de cine negro: sombra larga, título en caps condensadas.",
+      "viewport": "La figura chica contra una sombra de cuatro alturas, billing block abajo.",
+      "risk": "Voz de crime-film: intimida a una clientela que viene a comprar un regalo para la madrina.",
+      "case": "Gana en jerarquía gráfica pero pierde en cercanía: el trato personal que querés no cabe en un afiche de gángsters.",
+      "kept": "La sombra sólida modela, nunca un gradiente: pasó a las muestras.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-noir-one-sheet-duotone-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/posters-covers-sleeves-noir-one-sheet-duotone.webp"
+    },
+    {
+      "id": "challenger-mecha-crisis-wall",
+      "kind": "challenger",
+      "catalogId": "pop-culture-shelf-anime-command-center",
+      "label": "Command center mecha",
+      "verdict": "declined",
+      "lineage": "pared de crisis de anime de los 90, fósforo naranja y ácido",
+      "palette": ["#000000", "#ff6a00", "#8aff00", "#ff2a2a"],
+      "materials": ["fósforo", "chevrones de peligro", "siete segmentos"],
+      "thesis": "El catálogo como tablero de crisis: cuentan atrás y saltan alarmas.",
+      "viewport": "Cuenta regresiva monumental, bloques bilingües enmarcados.",
+      "risk": "Su audiencia es un adolescente otaku; la mamá del barrio cierra la pestaña en segundos.",
+      "case": "Pierde audiencia de punta a punta y la claridad de ‘te mando el pedido por WhatsApp’ se ahoga en sirenas.",
+      "kept": "El estado de stock como bloque bravo legible de un vistazo: pasó a las tarjetas.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-anime-command-center-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/pop-culture-shelf-anime-command-center.webp"
+    },
+    {
+      "id": "challenger-gravity-rain",
+      "kind": "challenger",
+      "catalogId": "dream-surreal-impossible-worlds-gravity-rain-garden",
+      "label": "Jardín de lluvia de gravedad",
+      "verdict": "declined",
+      "lineage": "jardín imposible donde cada nube curva la lluvia según su color",
+      "palette": ["#2e4038", "#4a6a8a", "#8a3a3a", "#111111"],
+      "materials": ["campo gravitatorio", "nubes de color", "flor negra"],
+      "thesis": "El catálogo como jardín de físicas imposibles: cada nube dicta su lluvia.",
+      "viewport": "Un campo gravitatorio dominante; el visitante pinta una nube.",
+      "risk": "Es para quien viene a jugar, no a comprar; la transacción se pierde en el paisaje.",
+      "case": "Pierde audiencia (no es el mundo de la mamá) y pierde claridad (el pedido no tiene dónde apoyarse).",
+      "kept": "Un solo movimiento dominante por viewport: nada compite con él.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-gravity-rain-garden-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-gravity-rain-garden.webp"
+    },
+    {
+      "id": "challenger-raku",
+      "kind": "challenger",
+      "catalogId": "clay-ceramics-fracture-raku-smoke-flash",
+      "label": "Raku: piel de humo",
+      "verdict": "declined",
+      "lineage": "raku japonés: choque térmico, carbón, arcilla expuesta",
+      "palette": ["#16120f", "#d8d2c8", "#c1502e"],
+      "materials": ["carbón", "esmalte craquelado", "arcilla vista"],
+      "thesis": "Cada pieza como un raku levantado del humo: irrepetible, hecha a mano.",
+      "viewport": "La pieza ember-orange como protagonista sobre arcilla soot-black.",
+      "risk": "Lee galería de cerámica: elegante pero fría para el trato de mostrador de la tienda.",
+      "case": "Gana en materia pero pierde en identificación: la mamá no siente que este es su almacén.",
+      "kept": "La asimetría como ley de composición: pasó a las muestras.",
+      "hero": "https://impeccable.style/worlds/cards/clay-ceramics-fracture-raku-smoke-flash-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/clay-ceramics-fracture-raku-smoke-flash.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "El estándar de la categoría",
+    "thesis": "Lo que esta categoría envía, ejecutado a full craft: grid limpio, buscador, chips, fotos grandes.",
+    "palette": ["#faf7f2", "#111111", "#b4432a"],
+    "materials": ["grid shadcn", "fotografía discreta", "tipografía sobria"],
+    "viewport": "La disposición que la visitante espera, sin personalidad declarada.",
+    "risk": "Indistinguible de la competencia por diseño; cero memoria.",
+    "wireframe": {
+      "cols": 12,
+      "rows": 10,
+      "regions": [
+        { "label": "nav estándar", "x": 0, "y": 0, "w": 12, "h": 1 },
+        { "label": "hero chico", "x": 0, "y": 1, "w": 12, "h": 2 },
+        { "label": "buscador", "x": 0, "y": 3, "w": 12, "h": 1 },
+        { "label": "chips", "x": 0, "y": 4, "w": 12, "h": 1 },
+        { "label": "grilla de cards", "x": 0, "y": 5, "w": 12, "h": 5 }
+      ]
+    }
+  },
+  "steer": true
+}

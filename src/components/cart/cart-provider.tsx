@@ -210,14 +210,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
           side="bottom"
-          className="mx-auto max-h-[86dvh] w-full max-w-xl rounded-t-[var(--radius-sheet)] border-t border-border pb-[env(safe-area-inset-bottom)]"
+          className="mx-auto max-h-[86dvh] w-full max-w-xl rounded-t-[var(--radius-sheet)] border-kraft-deep border-t bg-kraft pb-[env(safe-area-inset-bottom)]"
         >
           <SheetHeader className="p-4 pb-0">
-            <SheetTitle className="font-heading text-xl font-extrabold tracking-tight">
+            <SheetTitle className="inline-block w-fit -rotate-1 rounded-[var(--radius-ticket)] border-2 border-sello-blue px-3 py-0.5 font-heading text-lg font-extrabold uppercase tracking-[0.2em] text-sello-blue">
               Tu pedido
             </SheetTitle>
-            <SheetDescription>
-              Revisá el detalle y enviá el pedido por WhatsApp.
+            <SheetDescription className="text-foreground/75">
+              Fichas elegidas. La dueña confirma stock, entrega y pago por
+              WhatsApp — acá no pagás nada.
             </SheetDescription>
           </SheetHeader>
 
@@ -227,25 +228,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 Todavía no agregaste nada.
               </p>
             ) : (
-              <ul className="divide-y divide-border">
+              <ul className="flex flex-col gap-2 py-2">
                 {items.map((item) => (
                   <li
                     key={item.key}
-                    className="flex items-center justify-between gap-3 py-3"
-                  >
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium leading-snug">
-                        {item.name}
-                      </p>
-                      {item.talle && (
-                        <p className="text-xs text-muted-foreground">
-                          Talle {item.talle}
+                    className="flex items-center justify-between gap-3 rounded-[var(--radius-ticket)] border border-border bg-card p-2.5"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-sm font-bold leading-snug">
+                          {item.name}
                         </p>
-                      )}
-                      <p className="mt-0.5 text-sm font-semibold tabular-nums">
-                        {formatPrice(item.price * item.qty)}
-                      </p>
-                    </div>
+                        {item.talle && (
+                          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-sello-blue">
+                            Talle {item.talle}
+                          </p>
+                        )}
+                        <p className="mt-0.5 text-sm font-extrabold tabular-nums">
+                          {formatPrice(item.price * item.qty)}
+                        </p>
+                      </div>
                     <div className="flex shrink-0 items-center gap-2">
                       <div
                         className="flex items-center rounded-[var(--radius-md)] border border-border"
@@ -294,17 +295,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
             )}
           </div>
 
-          <SheetFooter className="border-t border-border p-4">
-            <div className="flex items-center justify-between text-lg font-bold">
-              <span>Total</span>
-              <span className="font-heading tabular-nums">
+          <SheetFooter className="border-t border-dashed border-kraft-deep p-4">
+            <div className="flex items-center justify-between">
+              <span className="rounded-[var(--radius-ticket)] border-2 border-destructive px-2 py-0.5 font-heading text-xs font-extrabold uppercase tracking-[0.25em] text-destructive">
+                Total
+              </span>
+              <span className="font-heading text-2xl font-extrabold tabular-nums tracking-tight">
                 {formatPrice(total)}
               </span>
             </div>
-            <p className="text-center text-sm leading-snug text-muted-foreground">
-              La dueña te confirma stock, entrega y forma de pago por
-              WhatsApp. Acá no pagás nada todavía.
-            </p>
             {WHATSAPP_READY && items.length > 0 && (
               <details className="text-center">
                 <summary className="cursor-pointer text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground">
@@ -323,12 +322,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 aria-disabled={items.length === 0}
                 className={cn(
                   buttonVariants({ size: "lg" }),
-                  "h-12 w-full rounded-xl text-base font-bold",
+                  "h-12 w-full rounded-[var(--radius-ticket)] text-base font-extrabold uppercase tracking-[0.12em]",
                   items.length === 0 && "pointer-events-none opacity-45",
                 )}
               >
                 <ShoppingCart aria-hidden />
-                Enviar pedido por WhatsApp
+                Enviar por WhatsApp
               </a>
             ) : (
               <p
