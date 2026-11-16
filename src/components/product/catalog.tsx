@@ -67,7 +67,7 @@ export function Catalog({ products }: { products: ProductWithRelations[] }) {
   return (
     <>
       <header className="pt-7">
-        <h1 className="font-heading text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl">
+        <h1 className="text-balance font-heading text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl">
           Novedades y catálogo
         </h1>
         <p className="mt-2 max-w-[46ch] text-muted-foreground">

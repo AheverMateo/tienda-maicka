@@ -55,9 +55,9 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <Card
       id={`p-${product.id}`}
-      className="gap-0 overflow-hidden rounded-[var(--radius-card)] border-border py-0 scroll-mt-24"
+      className="gap-0 overflow-hidden rounded-[var(--radius-card)] border-border py-0 scroll-mt-24 transition-[transform,box-shadow] duration-200 motion-safe:hover:-translate-y-0.5 hover:shadow-md"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-secondary">
         {image ? (
           <Image
             src={image.url}
