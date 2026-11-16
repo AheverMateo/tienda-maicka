@@ -64,9 +64,9 @@ npx tsc --noEmit   # verificar tipos
 
 | # | Tarea | Estado |
 |---|-------|--------|
-| 1.1 | Escribir `SPEC.md` (alcance por fase) y `CLAUDE.md` inicial | ⬜ |
-| 1.2 | Crear tablas en Supabase: `categories`, `products`, `variants`, `product_images` | ⬜ |
-| 1.3 | Configurar RLS: lectura pública de productos/variantes, escritura solo dueña | ⬜ |
+| 1.1 | Escribir `SPEC.md` (alcance por fase) y `CLAUDE.md` inicial | ✅ |
+| 1.2 | Crear tablas en Supabase: `categories`, `products`, `variants`, `product_images` | ✅ |
+| 1.3 | Configurar RLS: lectura pública de productos/variantes, escritura solo dueña | ✅ |
 | 1.4 | Script seed con datos de ejemplo (10-15 productos) | ⬜ |
 | 1.5 | Conectar cliente Supabase a Next.js (server components) | ⬜ |
 | 1.6 | Layout general: tipografías, colores, header del MVP | ⬜ |
