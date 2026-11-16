@@ -56,8 +56,8 @@ npx tsc --noEmit   # verificar tipos
 | # | Tarea | Estado |
 |---|-------|--------|
 | 0.1 | Conectar remote de GitHub al repo local | ✅ |
-| 0.2 | Crear proyecto en Supabase y obtener credenciales | ⬜ |
-| 0.3 | Configurar `.env.local` con URL y key de Supabase | ⬜ |
+| 0.2 | Crear proyecto en Supabase y obtener credenciales | ✅ |
+| 0.3 | Configurar `.env.local` con URL y key de Supabase | ✅ |
 
 ### Fase 1 — Semana 1: Base y catálogo real
 **Meta:** catálogo publicado en internet, leyendo productos de la base de datos.
