@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Bricolage_Grotesque, Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { SiteHeader } from "@/components/layout/site-header";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -15,7 +16,7 @@ const bricolageGrotesque = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Plan día por día – Catálogo con IA",
+  title: "Catálogo",
   description: "Tienda con pedidos por WhatsApp y fotos mejoradas con IA",
 };
 
@@ -30,6 +31,7 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", dmSans.variable, bricolageGrotesque.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full bg-background font-sans text-foreground antialiased">
+        <SiteHeader />
         {children}
       </body>
     </html>
