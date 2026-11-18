@@ -71,13 +71,13 @@ npx tsc --noEmit   # verificar tipos
 | 1.5 | Conectar cliente Supabase a Next.js (server components) | ✅ |
 | 1.6 | Layout general: tipografías, colores, header del MVP | ✅ |
 | 1.7 | Grilla de productos en home leyendo de Supabase | ✅ |
-| 1.8 | Chips de categoría y buscador | ⬜ |
-| 1.9 | Tira "Recién llegado" con productos nuevos | ⬜ |
-| 1.10 | Selector de talle con stock por variante (sin stock → deshabilitado) | ⬜ |
-| 1.11 | Estado "Agotado" cuando no hay stock o está `off` | ⬜ |
-| 1.12 | Carrito con estado cliente (context o zustand) | ⬜ |
-| 1.13 | Botón "Pedir por WhatsApp" que abre `wa.me` con pedido armado | ⬜ |
-| 1.14 | Deploy en Vercel con variables de entorno | ⬜ |
+| 1.8 | Chips de categoría y buscador | ✅ |
+| 1.9 | Tira "Recién llegado" con productos nuevos | ✅ |
+| 1.10 | Selector de talle con stock por variante (sin stock → deshabilitado) | ✅ |
+| 1.11 | Estado "Agotado" cuando no hay stock o está `off` | ✅ |
+| 1.12 | Carrito con estado cliente (context o zustand) | ✅ |
+| 1.13 | Botón "Pedir por WhatsApp" que abre `wa.me` con pedido armado | ✅ |
+| 1.14 | Deploy en Vercel con variables de entorno | ✅ |
 | 1.15 | Probar en 2 celulares (uno de gama baja) y corregir | ⬜ |
 
 ### Fase 2 — Semana 2: Panel de carga
@@ -159,10 +159,11 @@ npx tsc --noEmit   # verificar tipos
 > Leer esto primero al iniciar una nueva sesión.
 
 ### Última sesión
-- **Fecha:** 2026-11-13
-- **Tarea en curso:** Ninguna (fase 0 pendiente)
-- **Estado:** Proyecto Next.js limpio y funcionando. Commit `66fb33a`.
-- **Pendiente inmediato:** Conectar remote de GitHub (necesito la URL)
+- **Fecha:** 2026-11-16
+- **Tarea en curso:** Fase 1 cerrada salvo 1.15; arranca Fase 2
+- **Estado:** Home completa en `master` pusheado: grid desde Supabase, buscador + chips, rail "Recién llegado", talles con stock, agotado, carrito persistido (localStorage) con steppers y tope por stock, WhatsApp `wa.me`, sheet "Tu pedido". Mundo visual "laboratorio fotográfico" (sobre manila, sellos, cinta kraft). Commits hasta `00fa0e9`.
+- **Pendiente inmediato:** 1.15 probar en 2 celulares; fix menor: verificar `NEXT_PUBLIC_WHATSAPP_NUMBER` en producción (sheet mostraba aviso)
+- **WhatsApp para pruebas:** número provisorio 5493825417601 (propio de Mateo), falta confirmar número definitivo de la dueña
 
 ### Decisiones tomadas
 - Stack: Next.js 16 + Tailwind v4 + shadcn/ui (sin Supabase aún)
