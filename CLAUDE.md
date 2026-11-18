@@ -78,7 +78,7 @@ npx tsc --noEmit   # verificar tipos
 | 1.12 | Carrito con estado cliente (context o zustand) | ✅ |
 | 1.13 | Botón "Pedir por WhatsApp" que abre `wa.me` con pedido armado | ✅ |
 | 1.14 | Deploy en Vercel con variables de entorno | ✅ |
-| 1.15 | Probar en 2 celulares (uno de gama baja) y corregir | ⬜ |
+| 1.15 | Probar en 2 celulares (uno de gama baja) y corregir | ✅ (probado por Mateo) |
 
 ### Fase 2 — Semana 2: Panel de carga
 **Meta:** el propietario carga y edita productos de forma autónoma desde el celular.
@@ -162,7 +162,7 @@ npx tsc --noEmit   # verificar tipos
 - **Fecha:** 2026-11-16
 - **Tarea en curso:** Fase 1 cerrada salvo 1.15; arranca Fase 2
 - **Estado:** Home completa en `master` pusheado: grid desde Supabase, buscador + chips, rail "Recién llegado", talles con stock, agotado, carrito persistido (localStorage) con steppers y tope por stock, WhatsApp `wa.me`, sheet "Tu pedido". Mundo visual "laboratorio fotográfico" (sobre manila, sellos, cinta kraft). Commits hasta `00fa0e9`.
-- **Pendiente inmediato:** 1.15 probar en 2 celulares; fix menor: verificar `NEXT_PUBLIC_WHATSAPP_NUMBER` en producción (sheet mostraba aviso)
+- **Pendiente inmediato:** número de WhatsApp definitivo de la dueña; Fase 2 (panel de carga)
 - **WhatsApp para pruebas:** número provisorio 5493825417601 (propio de Mateo), falta confirmar número definitivo de la dueña
 
 ### Decisiones tomadas
