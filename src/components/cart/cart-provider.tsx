@@ -9,7 +9,8 @@ import {
   useState,
   type ReactNode,
 } from "react"
-import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react"
+import { Minus, Plus, ShoppingCart, Trash2, Undo2 } from "lucide-react"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Sheet,
   SheetContent,
@@ -91,6 +92,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false)
   const [open, setOpen] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
+  const [intent, setIntent] = useState<"pedido" | "info">("pedido")
+  const [draft, setDraft] = useState<string | null>(null)
 
   useEffect(() => {
     const id = window.setTimeout(() => {
@@ -140,7 +143,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const removeItem = useCallback((key: string) => {
     setItems((prev) => {
       const next = prev.filter((item) => item.key !== key)
-      if (next.length === 0) setOpen(false)
       return next
     })
   }, [])
@@ -150,12 +152,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const target = prev.find((item) => item.key === key)
       const capped =
         target?.maxStock !== undefined ? Math.min(qty, target.maxStock) : qty
-      const next =
-        capped <= 0
-          ? prev.filter((item) => item.key !== key)
-          : prev.map((item) => (item.key === key ? { ...item, qty: capped } : item))
-      if (next.length === 0) setOpen(false)
-      return next
+      if (capped <= 0) {
+        return prev.filter((item) => item.key !== key)
+      }
+      return prev.map((item) =>
+        item.key === key ? { ...item, qty: capped } : item,
+      )
     })
   }, [])
 
@@ -166,18 +168,35 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items])
 
-  const whatsappMessage = useMemo(() => {
+  const autoMessage = useMemo(() => {
     const lines = items.map(
       (item) =>
         `- ${item.qty}× ${item.name}${item.talle ? ` (talle ${item.talle})` : ""} — ${formatPrice(item.price * item.qty)}`,
     )
-    return `¡Hola! Quiero hacer este pedido:\n${lines.join("\n")}\nTotal: ${formatPrice(total)}`
-  }, [items, total])
+    if (intent === "pedido") {
+      const body = [
+        "¡Hola! Quiero hacer este pedido:",
+        ...lines,
+        `Total: ${formatPrice(total)}`,
+        "¿Me confirmás stock, forma de pago y entrega? ¡Gracias!",
+      ]
+      return body.join("\n")
+    }
+    const intro = lines.length
+      ? `¡Hola! Quería consultar por estos productos:\n${lines.join("\n")}`
+      : "¡Hola! Quería hacer una consulta antes de comprar."
+    return `${intro}\n¿Me contás disponibilidad, forma de pago y entrega? ¡Gracias!`
+  }, [items, total, intent])
+
+  const message = draft ?? autoMessage
+  const canSend =
+    message.trim().length > 0 &&
+    (intent === "info" || items.length > 0)
 
   const whatsappHref = useMemo(() => {
     if (!WHATSAPP_READY) return null
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`
-  }, [whatsappMessage])
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+  }, [message])
 
   const value = useMemo(
     () => ({
@@ -217,15 +236,52 @@ export function CartProvider({ children }: { children: ReactNode }) {
               Tu pedido
             </SheetTitle>
             <SheetDescription className="text-foreground/75">
-              Fichas elegidas. La dueña confirma stock, entrega y pago por
-              WhatsApp — acá no pagás nada.
+              Armá el mensaje, la dueña te confirma por WhatsApp — acá no
+              pagás nada.
             </SheetDescription>
           </SheetHeader>
 
           <div className="flex-1 overflow-y-auto px-4">
+            <div
+              role="group"
+              aria-label="¿Qué querés hacer?"
+              className="grid grid-cols-2 gap-2 pt-3"
+            >
+              {(
+                [
+                  { value: "pedido", label: "Quiero comprar" },
+                  { value: "info", label: "Quiero consultar" },
+                ] as const
+              ).map((option) => {
+                const active = intent === option.value
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => {
+                      setIntent(option.value)
+                      setDraft(null)
+                    }}
+                    className={cn(
+                      "h-11 rounded-[var(--radius-ticket)] border border-dashed border-border bg-card text-xs font-bold uppercase tracking-wider transition-colors",
+                      "hover:border-foreground hover:text-foreground",
+                      "focus-visible:outline-3 focus-visible:outline-ring",
+                      active &&
+                        "border-solid border-primary bg-primary text-primary-foreground shadow-[inset_0_2px_3px_rgba(0,0,0,0.3)] hover:text-primary-foreground",
+                    )}
+                  >
+                    {option.label}
+                  </button>
+                )
+              })}
+            </div>
+
             {items.length === 0 ? (
-              <p className="py-8 text-center text-muted-foreground">
-                Todavía no agregaste nada.
+              <p className="py-6 text-center text-sm text-muted-foreground">
+                {intent === "pedido"
+                  ? "Todavía no agregaste nada. Sumá fichas o pasate a “Quiero consultar”."
+                  : "Sin productos adjuntos. Escribí tu consulta abajo."}
               </p>
             ) : (
               <ul className="flex flex-col gap-2 py-2">
@@ -293,41 +349,63 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 ))}
               </ul>
             )}
+
+            <div className="pb-2 pt-3">
+              <div className="flex items-baseline justify-between gap-2">
+                <label
+                  htmlFor="wa-message"
+                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-sello-blue"
+                >
+                  Mensaje que va a llegar
+                </label>
+                {draft !== null && (
+                  <button
+                    type="button"
+                    onClick={() => setDraft(null)}
+                    className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground underline underline-offset-2 hover:text-foreground"
+                  >
+                    <Undo2 aria-hidden className="size-3" />
+                    Restablecer
+                  </button>
+                )}
+              </div>
+              <Textarea
+                id="wa-message"
+                rows={6}
+                value={message}
+                onChange={(event) => setDraft(event.target.value)}
+                className="mt-1.5 rounded-[var(--radius-ticket)] border-border bg-card text-[13px] leading-relaxed shadow-[inset_0_2px_3px_rgba(40,35,30,0.12)]"
+              />
+            </div>
           </div>
 
           <SheetFooter className="border-t border-dashed border-kraft-deep p-4">
-            <div className="flex items-center justify-between">
-              <span className="rounded-[var(--radius-ticket)] border-2 border-destructive px-2 py-0.5 font-heading text-xs font-extrabold uppercase tracking-[0.25em] text-destructive">
-                Total
-              </span>
-              <span className="font-heading text-2xl font-extrabold tabular-nums tracking-tight">
-                {formatPrice(total)}
-              </span>
-            </div>
-            {WHATSAPP_READY && items.length > 0 && (
-              <details className="text-center">
-                <summary className="cursor-pointer text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground">
-                  Ver cómo llega el mensaje
-                </summary>
-                <pre className="mt-2 whitespace-pre-wrap rounded-lg bg-muted p-3 text-left font-sans text-xs leading-relaxed text-foreground">
-                  {whatsappMessage}
-                </pre>
-              </details>
+            {intent === "pedido" && (
+              <div className="flex items-center justify-between">
+                <span className="rounded-[var(--radius-ticket)] border-2 border-destructive px-2 py-0.5 font-heading text-xs font-extrabold uppercase tracking-[0.25em] text-destructive">
+                  Total
+                </span>
+                <span className="font-heading text-2xl font-extrabold tabular-nums tracking-tight">
+                  {formatPrice(total)}
+                </span>
+              </div>
             )}
             {WHATSAPP_READY ? (
               <a
-                href={items.length > 0 ? (whatsappHref ?? undefined) : undefined}
+                href={canSend ? (whatsappHref ?? undefined) : undefined}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-disabled={items.length === 0}
+                aria-disabled={!canSend}
                 className={cn(
                   buttonVariants({ size: "lg" }),
                   "h-12 w-full rounded-[var(--radius-ticket)] text-base font-extrabold uppercase tracking-[0.12em]",
-                  items.length === 0 && "pointer-events-none opacity-45",
+                  !canSend && "pointer-events-none opacity-45",
                 )}
               >
                 <ShoppingCart aria-hidden />
-                Enviar por WhatsApp
+                {intent === "pedido"
+                  ? "Enviar pedido por WhatsApp"
+                  : "Enviar consulta por WhatsApp"}
               </a>
             ) : (
               <p
